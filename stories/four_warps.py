@@ -8,17 +8,25 @@ from tracking.tracking import GoldenTrack
 from landmarks.hands import Hands
 from media.effects import Warm, WarpingFade, Titles
 from media.ffmpeg import OutVideoWriter
-from image.opencv import binded_warp_cv_coloured, binded_warp_cv_coloured_image_grid,\
-    binded_warp_cv_coloured_centered, binded_warp_cv_coloured_double, binded_warp_cv_displacements
-from media.production import VideoToInstagram
-from story import Story
 
+global x_grid, y_grid, r_image, r_mask, r_full, xs, ys
+
+from image.opencv import rainbow_grid, prepare_grid_np
+from media.production import VideoToInstagram
+from stories.base import Story
 
 def run():
     writer = OutVideoWriter()
     WIDTH = 1280
     HEIGHT = 720
     WINNAME = 'MEDIA'
+
+    global x_grid, y_grid, r_image, r_mask, r_full, xs, ys
+
+
+
+    from image.opencv import binded_warp_cv_coloured, binded_warp_cv_coloured_image_grid, \
+        binded_warp_cv_coloured_centered, binded_warp_cv_coloured_double, binded_warp_cv_displacements
 
     cap = init_capture_window(WIDTH, HEIGHT, WINNAME)
     hands = Hands(min_det=0.4, min_track=0.5, width=WIDTH, height=HEIGHT)
@@ -56,6 +64,8 @@ def run():
     a = args.pop()
     w = warps.pop()
     fade = fades.pop()
+
+    print('HERE')
 
     fontpath = "design/fonts/edo.ttf"
     font = ImageFont.truetype(fontpath, 46)
@@ -142,7 +152,7 @@ def run():
 
 
 def postprocess():
-    vi = VideoToInstagram('output.mp4', 'design/images/red_yellow_orange.png')
+    vi = VideoToInstagram('out.mp4', 'design/images/red_yellow_orange.png')
     vi.production()
 
 
