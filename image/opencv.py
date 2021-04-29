@@ -62,6 +62,7 @@ def rainbow_grid(h=720, w=1280, n_y=6, n_x=11, horizontal=True):
     return image * bgr_mask, bgr_mask, image
 
 
+# NEED TO REMOVE THESE VARIABLES LATER
 r_image, r_mask, r_full = rainbow_grid()
 (x_grid, y_grid), xs, ys = prepare_grid_np(720, 1280)
 x_grid = x_grid.astype(np.float32)
